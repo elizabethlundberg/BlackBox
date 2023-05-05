@@ -12,6 +12,8 @@ Black Box is a puzzle game invented by Eric Solomon. Five atoms are placed semi-
 
 The goal is to correctly guess the location of all the atoms with as few rays as possible.
 
+Aesthetically, I would like the game to have an Apple II vibe
+
 ### A direct hit:
 
 ![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/BlackBoxSample2.svg/1920px-BlackBoxSample2.svg.png)
@@ -28,7 +30,7 @@ The goal is to correctly guess the location of all the atoms with as few rays as
 
 ## How to Get Started:
 
-The game will require two boards. The actual board will have n\*4 inputs for each ray. (Board sizes vary - I was thinking of going with the 8x8 to make it a little easier.) The second board will allow the player to track their guesses, and where they can submit their official guess. I was thinking of putting the notes/guess board directly over the black box, but it may confuse new players.
+The game will require two boards. The actual board will have n\*4 inputs for each ray. (Board sizes vary - I was thinking of going with the 8x8 to make it a little easier.) The second board will allow the player to track their guesses, and where they can submit their official guess. The second guess board is displayed over the actual board, but both need to be rendered separately.
 
 Rendering the logic of the rays seems like the most complex part. An atom reflects all rays that cross within one cell diagonally. I would need to write a function that, at each step, calculates any effects from the eight surrounding squares in the 2D array of the board. This will probably look a lot like the Check Win function in Connect-4/Tic-Tac-Toe.
 
