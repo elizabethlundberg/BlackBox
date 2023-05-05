@@ -1,0 +1,68 @@
+/*-------------------------------- Constants --------------------------------*/
+​
+const CELL_TYPES = {
+	define types of cells
+}
+​
+/*---------------------------- Variables (state) ----------------------------*/
+​
+board = array of arrays of real atom placement
+guessBoard = array of arrays for player's guesses
+score = keeps score according to rules (you want to keep your score low)
+selectorArrays = four arrays, each of which tracks the data of one side's selectors
+​
+/*------------------------ Cached Element References ------------------------*/
+
+const rayChoices = the 32 ray selectors
+const realCells = the 64 divs inside the board
+const guessCells = the 64 divs of the guess-board
+const submitGuessButton = the button to submit your guess
+const scoreDisplay = score display
+const selectorRows = the divs that represent the selectors​
+
+/*----------------------------- Event Listeners -----------------------------*/
+​
+event listener for the ray selectors
+event listener for the guess divs
+event listener for the play again button
+​
+/*-------------------------------- Functions --------------------------------*/
+​
+init() {
+	runs generateBoard()
+	resets the score
+	runs render()
+}
+
+generateBoard() {
+	randomly places atoms in the board. if I have time, I want to find a test - 
+	some random boards may be unwinnable
+}
+
+render() {
+	runs renderControls() and renderScore()
+}
+
+renderControls() {
+	clicked ray selectors will be replaced by a move number, pulled from the
+	selectorArrays array
+	lets the player keep track of their past moves and outputs
+}
+
+renderScore() {
+	displays current score
+}
+
+handleRayClick(ray option) {
+	use array to determine each step of the ray's movement - one cell out, two cells out, 
+	three cells out. the advantage is the array itself doesn't need to change
+	will probably need to call another function to check diagonally in the array
+	updates the score
+	
+	call render()
+}
+
+handleSubmitClick() {
+	iterates through the 2D array of guesses, compares them against the 2D array 
+	of actual atoms
+}
