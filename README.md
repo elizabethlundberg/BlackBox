@@ -8,7 +8,11 @@
 
 ## Description
 
-Black Box is a puzzle game invented by Eric Solomon. Five atoms are placed semi-randomly inside on a grid inside the "black box", inside which the player can't see. The player can shoot rays into the box at the edge, and atoms either be hit with the ray, returning nothing, or can bend the ray, leading it coming out of another exit. Each result gives you more information about the atoms inside.
+Black Box is a puzzle game invented by Eric Solomon, based on electron microscopes.
+
+![Image](https://upload.wikimedia.org/wikipedia/commons/c/c5/Electron_Microscope.jpg)
+
+Five atoms are placed semi-randomly inside on a grid inside the "black box", inside which the player can't see. The player can shoot rays into the box at the edge, and atoms either be hit with the ray, returning nothing, or can bend the ray, leading it coming out of another exit. Each result gives you more information about the atoms inside.
 
 The goal is to correctly guess the location of all the atoms with as few rays as possible.
 
