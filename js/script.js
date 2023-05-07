@@ -1,18 +1,16 @@
 /*----- constants -----*/
 let cellState = {
   0: 'black',
-  1: 'white'
+  A: 'white'
 }
 
 /*----- state variables -----*/
 let board = [
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0]
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0]
 ]
 let numOfAtoms = 3
 
@@ -23,7 +21,65 @@ const raySelEls = document.querySelectorAll('.ray-selector')
 const newGameButton = document.querySelector('button')
 
 /*----- functions -----*/
-const handleRayClick = (selector) => {}
+
+// I was tempted to learn how to do RegExes here, but didn't want to learn to do it wrong.
+
+const handleEmission = (electronRow, electronCol, electronDir) => {
+  if (board[electronRow][electronCol] === 'A') {
+    console.log('HIT')
+    return
+  }
+  if (electronDir === 'u' || electronDir === 'd') {
+    let adjCol1 = electronCol - 1
+    let adjCol2 = electronCol + 1
+    console.log(adjCol2)
+    if (board[electronRow][adjCol1] === 'A') {
+      console.log('RETURN')
+    } else if (board[electronRow][adjCol2] === 'A') {
+      console.log('RETURN')
+    } else {
+      console.log('CLEAR PATH')
+    }
+  }
+}
+
+const ponderAdjacent = (electronRow, electronCol, electronDir) => {
+  if (board[electronRow][electronCol] === 'A') {
+    console.log('HIT')
+  }
+  if (electronDir === 'u' || electronDir === 'd') {
+    console.log('Got here')
+    let adjCol1 = electronCol - 1
+    let adjCol2 = electronCol + 1
+    if (board[electronRow][adjCol1] === 'A') {
+      console.log('RETURN')
+    }
+  }
+}
+
+const handleRayClick = (selector) => {
+  let electronRow
+  let electronCol
+  let electronDir
+  if (selector.includes('top')) {
+    electronRow = 0
+    electronCol = Number(selector.charAt(selector.length - 1))
+    electronDir = 'd'
+  } else if (selector.includes('bottom')) {
+    electronRow = board.length - 1
+    electronCol = Number(selector.charAt(selector.length - 1))
+    electronDir = 'u'
+  } else if (selector.includes('left')) {
+    electronCol = 0
+    electronRow = Number(selector.charAt(selector.length - 1))
+    electronDir = 'r'
+  } else if (selector.includes('right')) {
+    electronCol = board.length - 1
+    electronRow = Number(selector.charAt(selector.length - 1))
+    electronDir = 'l'
+  }
+  handleEmission(electronRow, electronCol, electronDir)
+}
 
 const renderBoard = () => {
   board.forEach((rowArray, rowIdx) => {
@@ -37,7 +93,7 @@ const renderBoard = () => {
 
 const handleClick = (evt) => {
   if (evt.target.className === 'ray-selector') {
-    handleRayClick(selector)
+    handleRayClick(evt.target.id)
   } else if (evt.target.className === 'cell') {
     console.log(evt.target.id)
   }
@@ -45,13 +101,7 @@ const handleClick = (evt) => {
 
 const getRandLoc = () => {
   let randomRow = Math.floor(Math.random() * board[0].length)
-  while (randomRow === 0 || 7) {
-    let randomRow = Math.floor(Math.random() * board[0].length)
-  }
   let randomCol = Math.floor(Math.random() * board[0].length)
-  while (randomRow === 0 || 7) {
-    let randomRow = Math.floor(Math.random() * board[0].length)
-  }
   return [randomRow, randomCol]
 }
 
@@ -65,7 +115,22 @@ const getRandomBoard = () => {
   ]
   for (i = 0; i < numOfAtoms; i++) {
     let randLoc = getRandLoc()
-    board[randLoc[0]][randLoc[1]] = 1
+    if (board[randLoc[0]][randLoc[1]] === 'A') {
+      getRandomBoard()
+    }
+    board[randLoc[0]][randLoc[1]] = 'A'
+  }
+  // Check the number of atoms - it likes to make 4 for some reason.
+  let boardNumAtoms = 0
+  board.forEach((row) => {
+    row.forEach((el) => {
+      if (el === 'A') {
+        boardNumAtoms++
+      }
+    })
+  })
+  if (boardNumAtoms > numOfAtoms) {
+    getRandomBoard()
   }
 }
 
