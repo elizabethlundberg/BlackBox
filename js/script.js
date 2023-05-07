@@ -28,6 +28,17 @@ const raySelEls = document.querySelectorAll('.ray-selector')
 const newGameButton = document.querySelector('button')
 
 /*----- functions -----*/
+const checkForExit = (electronRow, electronCol, electronDir) => {
+  if (
+    (electronDir === 0 && electronRow === 0) ||
+    (electronDir === 1 && electronCol === board[0].length - 1) ||
+    (electronDir === 2 && electronCol === board.length - 1) ||
+    (electronDir === 3 && electronCol === 0)
+  ) {
+    return 'EXITED'
+  }
+}
+
 const determineMove = (test1, test2, test3) => {
   if (test2 === 'ATOM') {
     return 'HIT'
@@ -43,38 +54,16 @@ const determineMove = (test1, test2, test3) => {
 }
 
 const takeStep = (electronRow, electronCol, electronDir) => {
-  let exitStatus = false
   if (electronDir === 0) {
-    if (electronRow === 0) {
-      exitStatus = true
-      return
-    } else {
-      electronRow--
-    }
+    electronRow--
   } else if (electronDir === 1) {
-    if (electronCol === board.length) {
-      exitStatus = true
-      return
-    } else {
-      electronCol++
-    }
+    electronCol++
   } else if (electronDir === 2) {
-    if (electronRow === board.length) {
-      exitStatus = true
-      return
-    } else {
-      electronRow++
-    }
+    electronRow++
   } else if (electronDir === 3) {
-    if (electronCol === 0) {
-      exitStatus = true
-      return
-    } else {
-      electronCol--
-    }
+    electronCol--
   }
-  console.log(exitStatus)
-  return [electronRow, electronCol, exitStatus]
+  return [electronRow, electronCol]
 }
 
 const handleCheckCell = (checkRow, checkCol) => {
@@ -84,12 +73,17 @@ const handleCheckCell = (checkRow, checkCol) => {
 }
 
 const handleCheckStep = (electronRow, electronCol, electronDir) => {
-  console.log(`${electronRow}, ${electronCol}, ${electronDir}`)
+  let exitStatus = checkForExit(electronRow, electronCol, electronDir)
+  if (exitStatus === 'EXITED') {
+    console.log('EXITED')
+    return
+  }
   let test1
   let test2
   let test3
   let nextRow
   let nextCol
+  let nextStep
   if (electronDir === 0) {
     test1 = handleCheckCell(electronRow - 1, electronCol - 1)
     test2 = handleCheckCell(electronRow - 1, electronCol)
@@ -143,14 +137,10 @@ const handleCheckStep = (electronRow, electronCol, electronDir) => {
   } else if (nextStep === 'CLEAR') {
     console.log('CLEAR')
     let nextStepLoc = takeStep(electronRow, electronCol, electronDir)
-    if (nextStepLoc[2] === true) {
-      console.log('EXITED')
-      return
-    }
     nextRow = nextStepLoc[0]
     nextCol = nextStepLoc[1]
   }
-  console.log(nextStep)
+  console.log
   handleCheckStep(nextRow, nextCol, electronDir)
 }
 
