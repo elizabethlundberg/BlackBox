@@ -21,8 +21,11 @@ const raySelEls = document.querySelectorAll('.ray-selector')
 const newGameButton = document.querySelector('button')
 
 /*----- functions -----*/
-
-// I was tempted to learn how to do RegExes here, but didn't want to learn to do it wrong.
+const handleCheckCell = (checkRow, checkCol) => {
+  if (board[checkRow][checkCol] === 'A') {
+    return 'RETURN'
+  }
+}
 
 const handleEmission = (electronRow, electronCol, electronDir) => {
   if (board[electronRow][electronCol] === 'A') {
@@ -30,12 +33,26 @@ const handleEmission = (electronRow, electronCol, electronDir) => {
     return
   }
   if (electronDir === 'u' || electronDir === 'd') {
-    let adjCol1 = electronCol - 1
-    let adjCol2 = electronCol + 1
-    console.log(adjCol2)
-    if (board[electronRow][adjCol1] === 'A') {
+    let result1 = handleCheckCell(electronRow, electronCol - 1)
+    let result2 = handleCheckCell(electronRow, electronCol + 1)
+    if (result1 === 'RETURN' || result2 === 'RETURN') {
       console.log('RETURN')
-    } else if (board[electronRow][adjCol2] === 'A') {
+    } else {
+      console.log('CLEAR PATH')
+    }
+  }
+  if (electronDir === 'l' || electronDir === 'r') {
+    let result1
+    let result2
+    if (electronRow === 0) {
+      result2 = handleCheckCell(electronRow + 1, electronCol)
+    } else if (electronRow === board.length - 1) {
+      result1 = handleCheckCell(electronRow - 1, electronCol)
+    } else {
+      result1 = handleCheckCell(electronRow - 1, electronCol)
+      result2 = handleCheckCell(electronRow + 1, electronCol)
+    }
+    if (result1 === 'RETURN' || result2 === 'RETURN') {
       console.log('RETURN')
     } else {
       console.log('CLEAR PATH')
