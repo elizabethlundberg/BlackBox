@@ -1,0 +1,16 @@
+#board {
+  visibility: hidden;
+  height: 90vmin;
+  width: 90vmin;
+  display: grid;
+  grid-template: 1.5fr repeat(5, 1fr) 1.5fr / 1.5fr repeat(5, 1fr) 1.5fr;
+}
+
+#board > div {
+  border-style: solid;
+}
+
+#board > .ray-selector {
+  background-color: green;
+}
+
