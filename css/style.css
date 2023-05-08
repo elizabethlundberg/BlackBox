@@ -12,5 +12,6 @@
 
 #board > .ray-selector {
   background-color: green;
+  font-size: 4vmin;
 }
 
