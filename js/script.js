@@ -1,5 +1,5 @@
 /*----- constants -----*/
-let cellState = {
+let CELL_STATE = {
   0: 'black',
   A: 'white'
 }
@@ -21,8 +21,16 @@ let SELECTOR_COLORS = {
   99: 'limegreen'
 }
 
+let GUESS_BOARD_STATE = {
+  0: 'black',
+  1: 'red',
+  2: 'yellow',
+  3: 'green'
+}
+
 /*----- state variables -----*/
 let board
+let guessBoard
 let numOfAtoms = 3
 let lastExit
 let lastHit
@@ -31,8 +39,10 @@ let exitNo
 /*----- cached elements  -----*/
 const boardEl = document.getElementById('board')
 const cellEls = document.querySelectorAll('#board > div')
+const guessCellEls = document.querySelectorAll('#guess-board > div')
 const raySelEls = document.querySelectorAll('.ray-selector')
 const newGameButton = document.querySelector('button')
+const guessBoardEl = document.getElementById('guess-board')
 
 /*----- functions -----*/
 const checkSpace = (row, col) => {
@@ -214,7 +224,7 @@ const handleEnd = (reason, emitter, firstSpaceRow, firstSpaceCol) => {
   }
 }
 
-const handleClick = (evt) => {
+const handleRayClick = (evt) => {
   let status
   lastExit = undefined
   lastHit = undefined
@@ -261,7 +271,21 @@ const renderBoard = () => {
         if (colIdx !== 0 && colIdx < board.length - 1) {
           const cellId = `r${rowIdx}c${colIdx}`
           const divCell = document.getElementById(cellId)
-          divCell.style.backgroundColor = cellState[cellVal]
+          divCell.style.visibility = 'hidden'
+        }
+      })
+    }
+  })
+}
+
+const renderGuessBoard = () => {
+  guessBoard.forEach((rowArr, rowIdx) => {
+    if (rowIdx !== 0 && rowIdx !== board.length - 1) {
+      rowArr.forEach((cellVal, colIdx) => {
+        if (colIdx !== 0 && colIdx < board.length - 1) {
+          const cellId = `Gr${rowIdx}c${colIdx}`
+          const divCell = document.getElementById(cellId)
+          divCell.style.backgroundColor = GUESS_BOARD_STATE[cellVal]
         }
       })
     }
@@ -307,6 +331,32 @@ const resetSelectors = () => {
   })
 }
 
+const handleGuessClick = (evt) => {
+  let guessLoc = evt.target.id
+  let guessRow = guessLoc.charAt(2)
+  let guessCol = guessLoc.charAt(4)
+  guessBoard[guessRow][guessCol] = (guessBoard[guessRow][guessCol] + 1) % 4
+  renderGuessBoard()
+}
+
+const initGuessBoard = () => {
+  guessBoard = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0]
+  ]
+  for (let i = 0; i < guessCellEls.length; i++) {
+    guessCellEls[i].style.gridArea = guessCellEls[i].id
+  }
+  guessBoardEl.style.gridTemplateAreas =
+    "'Gr1c1 Gr1c2 Gr1c3 Gr1c4 Gr1c5' 'Gr2c1 Gr2c2 Gr2c3 Gr2c4 Gr2c5' 'Gr3c1 Gr3c2 Gr3c3 Gr3c4 Gr3c5' 'Gr4c1 Gr4c2 Gr4c3 Gr4c4 Gr4c5' 'Gr5c1 Gr5c2 Gr5c3 Gr5c4 Gr5c5'"
+  guessBoardEl.style.visibility = 'visible'
+}
+
 //Rewrite this to accept multiple board forms, or be able to construct challenge boards.
 const initBoard = () => {
   for (let i = 0; i < cellEls.length; i++) {
@@ -320,6 +370,7 @@ const init = () => {
   getRandomBoard()
   renderBoard()
   initBoard()
+  initGuessBoard()
   boardEl.style.visibility = 'visible'
   resetSelectors()
   exitNo = 1
@@ -327,4 +378,5 @@ const init = () => {
 
 /*----- event listeners -----*/
 newGameButton.addEventListener('click', init)
-boardEl.addEventListener('click', handleClick)
+boardEl.addEventListener('click', handleRayClick)
+guessBoardEl.addEventListener('click', handleGuessClick)
