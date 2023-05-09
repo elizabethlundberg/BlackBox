@@ -16,7 +16,7 @@
   z-index: 0;
 }
 
-#board > .ray-selector {
+#guess-board > .ray-selector {
   background-color: green;
   font-size: 4vmin;
 }
@@ -25,12 +25,15 @@
   text-align: center;
 }
 
+#guess-cell {
+  background-color: black;
+}
+
 #guess-board {
-  visibility: hidden;
+  display: grid;
+  grid-template: 1.5fr repeat(5, 1fr) 1.5fr / 1.5fr repeat(5, 1fr) 1.5fr;
   height: 31.25vw;
   width: 31.25vw;
-  display: grid;
-  grid-template: repeat(5, 1fr) / repeat(5, 1fr);
   position: absolute;
   left: 34.375vw;
   right: 34.375vw;

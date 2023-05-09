@@ -231,37 +231,37 @@ const handleEnd = (reason, emitter, firstSpaceRow, firstSpaceCol) => {
   }
 }
 
-const handleRayClick = (evt) => {
+const handleRayClick = (selector) => {
   let status
   lastExit = undefined
   lastHit = undefined
-  if (evt.target.className !== 'ray-selector') {
+  if (selector.className !== 'ray-selector') {
     return
   }
-  if (evt.target.innerText) {
+  if (selector.innerText) {
     return
   }
   // Place atom in the opening cell.
-  let firstSpace = placeElectron(evt.target)
+  let firstSpace = placeElectron(selector)
   // Check for atom ahead.
   status = checkHit(firstSpace[0], firstSpace[1], firstSpace[2])
   if (status === 'HIT') {
-    handleEnd('HIT', evt.target)
+    handleEnd('HIT', selector)
     return
   }
   status = checkBothDiagonals(firstSpace[0], firstSpace[1], firstSpace[2])
   status = checkLeaveEmitter(status)
   if (status === 'RETURN TO EMIT') {
-    handleEnd('IMM RETURN', evt.target)
+    handleEnd('IMM RETURN', selector)
     return
   }
   stepForward(firstSpace[0], firstSpace[1], firstSpace[2])
   // Write handle exit condition to also cover return to emit
   if (lastExit !== undefined) {
-    handleEnd('EXIT', evt.target, firstSpace[0], firstSpace[1])
+    handleEnd('EXIT', selector, firstSpace[0], firstSpace[1])
   }
   if (lastHit !== undefined) {
-    handleEnd('HIT', evt.target)
+    handleEnd('HIT', selector)
   }
   score += 2
   renderScore()
@@ -368,7 +368,11 @@ const submitGuess = () => {
   renderScore()
 }
 
-const handleGuessClick = (evt) => {
+const handleBoardClick = (evt) => {
+  if (evt.target.className === 'ray-selector') {
+    handleRayClick(evt.target)
+    return
+  }
   let guessLoc = evt.target.id
   let guessRow = guessLoc.charAt(2)
   let guessCol = guessLoc.charAt(4)
@@ -393,18 +397,11 @@ const initGuessBoard = () => {
     guessCellEls[i].style.gridArea = guessCellEls[i].id
   }
   guessBoardEl.style.gridTemplateAreas =
-    "'Gr1c1 Gr1c2 Gr1c3 Gr1c4 Gr1c5' 'Gr2c1 Gr2c2 Gr2c3 Gr2c4 Gr2c5' 'Gr3c1 Gr3c2 Gr3c3 Gr3c4 Gr3c5' 'Gr4c1 Gr4c2 Gr4c3 Gr4c4 Gr4c5' 'Gr5c1 Gr5c2 Gr5c3 Gr5c4 Gr5c5'"
+    "'. top-1 top-2 top-3 top-4 top-5 .' 'left-1 Gr1c1 Gr1c2 Gr1c3 Gr1c4 Gr1c5 right-1' 'left-2 Gr2c1 Gr2c2 Gr2c3 Gr2c4 Gr2c5 right-2' 'left-3 Gr3c1 Gr3c2 Gr3c3 Gr3c4 Gr3c5 right-3' 'left-4 Gr4c1 Gr4c2 Gr4c3 Gr4c4 Gr4c5 right-4' 'left-5 Gr5c1 Gr5c2 Gr5c3 Gr5c4 Gr5c5 right-5' '. bottom-1 bottom-2 bottom-3 bottom-4 bottom-5 .'"
   guessBoardEl.style.visibility = 'visible'
 }
 
 //Rewrite this to accept multiple board forms, or be able to construct challenge boards.
-const initBoard = () => {
-  for (let i = 0; i < cellEls.length; i++) {
-    cellEls[i].style.gridArea = cellEls[i].id
-  }
-  boardEl.style.gridTemplateAreas =
-    "'. top-1 top-2 top-3 top-4 top-5 .' 'left-1 r1c1 r1c2 r1c3 r1c4 r1c5 right-1' 'left-2 r2c1 r2c2 r2c3 r2c4 r2c5 right-2' 'left-3 r3c1 r3c2 r3c3 r3c4 r3c5 right-3' 'left-4 r4c1 r4c2 r4c3 r4c4 r4c5 right-4' 'left-5 r5c1 r5c2 r5c3 r5c4 r5c5 right-5' '. bottom-1 bottom-2 bottom-3 bottom-4 bottom-5 .'"
-}
 
 const renderScore = () => {
   scoreEl.innerText = score
@@ -412,10 +409,8 @@ const renderScore = () => {
 
 const init = () => {
   getRandomBoard()
-  initBoard()
   initGuessBoard()
   renderGuessBoard()
-  boardEl.style.visibility = 'visible'
   resetSelectors()
   exitNo = 1
   submitButton.disabled = true
@@ -425,6 +420,5 @@ const init = () => {
 
 /*----- event listeners -----*/
 newGameButton.addEventListener('click', init)
-boardEl.addEventListener('click', handleRayClick)
-guessBoardEl.addEventListener('click', handleGuessClick)
+guessBoardEl.addEventListener('click', handleBoardClick)
 submitButton.addEventListener('click', submitGuess)
