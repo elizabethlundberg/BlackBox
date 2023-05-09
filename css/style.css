@@ -1,14 +1,13 @@
 #board {
   visibility: hidden;
-  height: 70vmin;
-  width: 70vmin;
+  height: 50vw;
+  width: 50vw;
   display: grid;
   grid-template: 1.5fr repeat(5, 1fr) 1.5fr / 1.5fr repeat(5, 1fr) 1.5fr;
   position: absolute;
-  left: 15vmin;
-  right: 15vmin;
-  top: 15vmin;
-  bottom: 15vmin;
+  left: 25vw;
+  right: 25vw;
+  top: 200px;
   z-index: 0;
 }
 
@@ -22,17 +21,20 @@
   font-size: 4vmin;
 }
 
+#score-display {
+  text-align: center;
+}
+
 #guess-board {
   visibility: hidden;
-  height: 43.75vmin;
-  width: 43.75vmin;
+  height: 31.25vw;
+  width: 31.25vw;
   display: grid;
   grid-template: repeat(5, 1fr) / repeat(5, 1fr);
   position: absolute;
-  left: 28.125vmin;
-  right: 28.125vmin;
-  top: 28.125vmin;
-  bottom: 28.125vmin;
+  left: 34.375vw;
+  right: 34.375vw;
+  top: 331px;
   z-index: 1;
 }
 
@@ -40,4 +42,23 @@
   z-index: 2;
   background-color: black;
   border: solid grey;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  position: absolute;
+  top: 1000px;
+  left: 40vw;
+  right: 40vw;
+}
+
+#submit-guess {
+  top: 970px;
+}
+
+#new-game {
+  top: 160px;
 }

@@ -9,80 +9,89 @@
   <script defer src='js/script.js'></script>
 </head>
 <body>
-  <div id="guess-board">
-    <div class="guess-cell" id="Gr1c1"></div>
-    <div class="guess-cell" id="Gr1c2"></div>
-    <div class="guess-cell" id="Gr1c3"></div>
-    <div class="guess-cell" id="Gr1c4"></div>
-    <div class="guess-cell" id="Gr1c5"></div>
-    <div class="guess-cell" id="Gr2c1"></div>
-    <div class="guess-cell" id="Gr2c2"></div>
-    <div class="guess-cell" id="Gr2c3"></div>
-    <div class="guess-cell" id="Gr2c4"></div>
-    <div class="guess-cell" id="Gr2c5"></div>
-    <div class="guess-cell" id="Gr3c1"></div>
-    <div class="guess-cell" id="Gr3c2"></div>
-    <div class="guess-cell" id="Gr3c3"></div>
-    <div class="guess-cell" id="Gr3c4"></div>
-    <div class="guess-cell" id="Gr3c5"></div>
-    <div class="guess-cell" id="Gr4c1"></div>
-    <div class="guess-cell" id="Gr4c2"></div>
-    <div class="guess-cell" id="Gr4c3"></div>
-    <div class="guess-cell" id="Gr4c4"></div>
-    <div class="guess-cell" id="Gr4c5"></div>
-    <div class="guess-cell" id="Gr5c1"></div>
-    <div class="guess-cell" id="Gr5c2"></div>
-    <div class="guess-cell" id="Gr5c3"></div>
-    <div class="guess-cell" id="Gr5c4"></div>
-    <div class="guess-cell" id="Gr5c5"></div>
+  <div id="grid">
+    <h1>BLACK BOX</h1>
+    <div id="score-display">Score: <span id="score"></span></div>
+    <div id="guess-board">
+      <div class="guess-cell" id="Gr1c1"></div>
+      <div class="guess-cell" id="Gr1c2"></div>
+      <div class="guess-cell" id="Gr1c3"></div>
+      <div class="guess-cell" id="Gr1c4"></div>
+      <div class="guess-cell" id="Gr1c5"></div>
+      <div class="guess-cell" id="Gr2c1"></div>
+      <div class="guess-cell" id="Gr2c2"></div>
+      <div class="guess-cell" id="Gr2c3"></div>
+      <div class="guess-cell" id="Gr2c4"></div>
+      <div class="guess-cell" id="Gr2c5"></div>
+      <div class="guess-cell" id="Gr3c1"></div>
+      <div class="guess-cell" id="Gr3c2"></div>
+      <div class="guess-cell" id="Gr3c3"></div>
+      <div class="guess-cell" id="Gr3c4"></div>
+      <div class="guess-cell" id="Gr3c5"></div>
+      <div class="guess-cell" id="Gr4c1"></div>
+      <div class="guess-cell" id="Gr4c2"></div>
+      <div class="guess-cell" id="Gr4c3"></div>
+      <div class="guess-cell" id="Gr4c4"></div>
+      <div class="guess-cell" id="Gr4c5"></div>
+      <div class="guess-cell" id="Gr5c1"></div>
+      <div class="guess-cell" id="Gr5c2"></div>
+      <div class="guess-cell" id="Gr5c3"></div>
+      <div class="guess-cell" id="Gr5c4"></div>
+      <div class="guess-cell" id="Gr5c5"></div>
+    </div>
+    <div id="board">
+      <div class="ray-selector" id="top-1"></div>
+      <div class="ray-selector" id="top-2"></div>
+      <div class="ray-selector" id="top-3"></div>
+      <div class="ray-selector" id="top-4"></div>
+      <div class="ray-selector" id="top-5"></div>
+      <div class="ray-selector" id="left-1"></div>
+      <div class="cell" id="r1c1"></div>
+      <div class="cell" id="r1c2"></div>
+      <div class="cell" id="r1c3"></div>
+      <div class="cell" id="r1c4"></div>
+      <div class="cell" id="r1c5"></div>
+      <div class="ray-selector" id="right-1"></div>
+      <div class="ray-selector" id="left-2"></div>
+      <div class="cell" id="r2c1"></div>
+      <div class="cell" id="r2c2"></div>
+      <div class="cell" id="r2c3"></div>
+      <div class="cell" id="r2c4"></div>
+      <div class="cell" id="r2c5"></div>
+      <div class="ray-selector" id="right-2"></div>
+      <div class="ray-selector" id="left-3"></div>
+      <div class="cell" id="r3c1"></div>
+      <div class="cell" id="r3c2"></div>
+      <div class="cell" id="r3c3"></div>
+      <div class="cell" id="r3c4"></div>
+      <div class="cell" id="r3c5"></div>
+      <div class="ray-selector" id="right-3"></div>
+      <div class="ray-selector" id="left-4"></div>
+      <div class="cell" id="r4c1"></div>
+      <div class="cell" id="r4c2"></div>
+      <div class="cell" id="r4c3"></div>
+      <div class="cell" id="r4c4"></div>
+      <div class="cell" id="r4c5"></div>
+      <div class="ray-selector" id="right-4"></div>
+      <div class="ray-selector" id="left-5"></div>
+      <div class="cell" id="r5c1"></div>
+      <div class="cell" id="r5c2"></div>
+      <div class="cell" id="r5c3"></div>
+      <div class="cell" id="r5c4"></div>
+      <div class="cell" id="r5c5"></div>
+      <div class="ray-selector" id="right-5"></div>
+      <div class="ray-selector" id="bottom-1"></div>
+      <div class="ray-selector" id="bottom-2"></div>
+      <div class="ray-selector" id="bottom-3"></div>
+      <div class="ray-selector" id="bottom-4"></div>
+      <div class="ray-selector" id="bottom-5"></div>
+    </div>
+  <button id="new-game">NEW GAME</button>
+  <button disabled id="submit-guess">SUBMIT GUESS</button>
+  <div>
+  <h2>GUIDE</h2>
+  <p></p>
   </div>
-  <div id="board">
-    <div class="ray-selector" id="top-1"></div>
-    <div class="ray-selector" id="top-2"></div>
-    <div class="ray-selector" id="top-3"></div>
-    <div class="ray-selector" id="top-4"></div>
-    <div class="ray-selector" id="top-5"></div>
-    <div class="ray-selector" id="left-1"></div>
-    <div class="cell" id="r1c1"></div>
-    <div class="cell" id="r1c2"></div>
-    <div class="cell" id="r1c3"></div>
-    <div class="cell" id="r1c4"></div>
-    <div class="cell" id="r1c5"></div>
-    <div class="ray-selector" id="right-1"></div>
-    <div class="ray-selector" id="left-2"></div>
-    <div class="cell" id="r2c1"></div>
-    <div class="cell" id="r2c2"></div>
-    <div class="cell" id="r2c3"></div>
-    <div class="cell" id="r2c4"></div>
-    <div class="cell" id="r2c5"></div>
-    <div class="ray-selector" id="right-2"></div>
-    <div class="ray-selector" id="left-3"></div>
-    <div class="cell" id="r3c1"></div>
-    <div class="cell" id="r3c2"></div>
-    <div class="cell" id="r3c3"></div>
-    <div class="cell" id="r3c4"></div>
-    <div class="cell" id="r3c5"></div>
-    <div class="ray-selector" id="right-3"></div>
-    <div class="ray-selector" id="left-4"></div>
-    <div class="cell" id="r4c1"></div>
-    <div class="cell" id="r4c2"></div>
-    <div class="cell" id="r4c3"></div>
-    <div class="cell" id="r4c4"></div>
-    <div class="cell" id="r4c5"></div>
-    <div class="ray-selector" id="right-4"></div>
-    <div class="ray-selector" id="left-5"></div>
-    <div class="cell" id="r5c1"></div>
-    <div class="cell" id="r5c2"></div>
-    <div class="cell" id="r5c3"></div>
-    <div class="cell" id="r5c4"></div>
-    <div class="cell" id="r5c5"></div>
-    <div class="ray-selector" id="right-5"></div>
-    <div class="ray-selector" id="bottom-1"></div>
-    <div class="ray-selector" id="bottom-2"></div>
-    <div class="ray-selector" id="bottom-3"></div>
-    <div class="ray-selector" id="bottom-4"></div>
-    <div class="ray-selector" id="bottom-5"></div>
-  </div>
-  <button>NEW GAME</button>
+</div>
 </body>
 </html>

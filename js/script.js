@@ -23,9 +23,11 @@ let SELECTOR_COLORS = {
 
 let GUESS_BOARD_STATE = {
   0: 'black',
-  1: 'red',
+  1: 'purple',
   2: 'yellow',
-  3: 'green'
+  3: 'green',
+  98: 'red',
+  99: 'blue'
 }
 
 /*----- state variables -----*/
@@ -35,14 +37,19 @@ let numOfAtoms = 3
 let lastExit
 let lastHit
 let exitNo
+let score
+const wrongCost = 5
+const rightReward = -5
 
 /*----- cached elements  -----*/
 const boardEl = document.getElementById('board')
 const cellEls = document.querySelectorAll('#board > div')
 const guessCellEls = document.querySelectorAll('#guess-board > div')
 const raySelEls = document.querySelectorAll('.ray-selector')
-const newGameButton = document.querySelector('button')
+const newGameButton = document.querySelector('#new-game')
 const guessBoardEl = document.getElementById('guess-board')
+const submitButton = document.getElementById('submit-guess')
+const scoreEl = document.getElementById('score')
 
 /*----- functions -----*/
 const checkSpace = (row, col) => {
@@ -256,26 +263,14 @@ const handleRayClick = (evt) => {
   if (lastHit !== undefined) {
     handleEnd('HIT', evt.target)
   }
+  score += 2
+  renderScore()
 }
 
 const getRandLoc = () => {
   let randomRow = Math.floor(Math.random() * (board[0].length - 2) + 1)
   let randomCol = Math.floor(Math.random() * (board[0].length - 2) + 1)
   return [randomRow, randomCol]
-}
-
-const renderBoard = () => {
-  board.forEach((rowArray, rowIdx) => {
-    if (rowIdx !== 0 && rowIdx !== board.length - 1) {
-      rowArray.forEach((cellVal, colIdx) => {
-        if (colIdx !== 0 && colIdx < board.length - 1) {
-          const cellId = `r${rowIdx}c${colIdx}`
-          const divCell = document.getElementById(cellId)
-          divCell.style.visibility = 'hidden'
-        }
-      })
-    }
-  })
 }
 
 const renderGuessBoard = () => {
@@ -331,12 +326,57 @@ const resetSelectors = () => {
   })
 }
 
+const submitGuess = () => {
+  let numToRun = guessBoard.length * guessBoard.length
+  let scoreAdjust = 0
+  for (i = 0; i < numToRun; i++) {
+    let curRow = Math.floor(i / guessBoard.length)
+    let curCol = i % board.length
+    if (
+      curRow !== 0 &&
+      curRow !== guessBoard.length - 1 &&
+      curCol !== 0 &&
+      curCol !== guessBoard.length - 1
+    ) {
+      if (guessBoard[curRow][curCol] === 3) {
+        if (board[curRow][curCol] === 'A') {
+          guessBoard[curRow][curCol] = 99
+          scoreAdjust += rightReward
+        }
+      }
+    }
+  }
+  for (i = 0; i < numToRun; i++) {
+    let curRow = Math.floor(i / guessBoard.length)
+    let curCol = i % guessBoard.length
+    if (
+      curRow !== 0 &&
+      curRow !== guessBoard.length - 1 &&
+      curCol !== 0 &&
+      curCol !== guessBoard.length - 1
+    ) {
+      if (board[curRow][curCol] === 'A') {
+        if (guessBoard[curRow][curCol] !== 99) {
+          guessBoard[curRow][curCol] = 98
+          scoreAdjust += wrongCost
+        }
+      }
+    }
+  }
+  renderGuessBoard()
+  score += scoreAdjust
+  renderScore()
+}
+
 const handleGuessClick = (evt) => {
   let guessLoc = evt.target.id
   let guessRow = guessLoc.charAt(2)
   let guessCol = guessLoc.charAt(4)
   guessBoard[guessRow][guessCol] = (guessBoard[guessRow][guessCol] + 1) % 4
   renderGuessBoard()
+  if (guessBoard[guessRow][guessCol] === 3) {
+    submitButton.disabled = false
+  }
 }
 
 const initGuessBoard = () => {
@@ -366,17 +406,25 @@ const initBoard = () => {
     "'. top-1 top-2 top-3 top-4 top-5 .' 'left-1 r1c1 r1c2 r1c3 r1c4 r1c5 right-1' 'left-2 r2c1 r2c2 r2c3 r2c4 r2c5 right-2' 'left-3 r3c1 r3c2 r3c3 r3c4 r3c5 right-3' 'left-4 r4c1 r4c2 r4c3 r4c4 r4c5 right-4' 'left-5 r5c1 r5c2 r5c3 r5c4 r5c5 right-5' '. bottom-1 bottom-2 bottom-3 bottom-4 bottom-5 .'"
 }
 
+const renderScore = () => {
+  scoreEl.innerText = score
+}
+
 const init = () => {
   getRandomBoard()
-  renderBoard()
   initBoard()
   initGuessBoard()
+  renderGuessBoard()
   boardEl.style.visibility = 'visible'
   resetSelectors()
   exitNo = 1
+  submitButton.disabled = true
+  score = 0
+  renderScore()
 }
 
 /*----- event listeners -----*/
 newGameButton.addEventListener('click', init)
 boardEl.addEventListener('click', handleRayClick)
 guessBoardEl.addEventListener('click', handleGuessClick)
+submitButton.addEventListener('click', submitGuess)
