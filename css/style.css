@@ -1,24 +1,17 @@
-#board {
-  visibility: hidden;
-  height: 50vw;
-  width: 50vw;
-  display: grid;
-  grid-template: 1.5fr repeat(5, 1fr) 1.5fr / 1.5fr repeat(5, 1fr) 1.5fr;
-  position: absolute;
-  left: 25vw;
-  right: 25vw;
-  top: 200px;
-  z-index: 0;
-}
-
-#board > div {
-  border-style: solid;
-  z-index: 0;
-}
-
 #guess-board > .ray-selector {
-  background-color: green;
   font-size: 4vmin;
+}
+
+#grid {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  grid-template-rows: 1fr 0.5fr 0.6fr 6fr 0.5fr 1fr;
+  grid-template-areas: "heading heading heading" ". new-game-button ." ". score ." "game game game" ". submit-button ." ". description .";
+  position: absolute;
+  width: 95vw;
+  left: 2.5vw;
+  border: solid;
+  justify-items: center;
 }
 
 #score-display {
@@ -32,13 +25,13 @@
 #guess-board {
   display: grid;
   grid-template: 1.5fr repeat(5, 1fr) 1.5fr / 1.5fr repeat(5, 1fr) 1.5fr;
-  height: 31.25vw;
-  width: 31.25vw;
-  position: absolute;
-  left: 34.375vw;
-  right: 34.375vw;
-  top: 331px;
   z-index: 1;
+  width: 70vw;
+  height: 70vw;
+  grid-area: game;
+  visibility: hidden;
+  max-width: 600px;
+  max-height: 600px;
 }
 
 #guess-board > div {
@@ -47,21 +40,27 @@
   border: solid grey;
 }
 
-h1 {
-  text-align: center;
+#description {
+  grid-area: description;
 }
 
-button {
-  position: absolute;
-  top: 1000px;
-  left: 40vw;
-  right: 40vw;
+h1 {
+  grid-area: heading;
+  border: solid;
+  font-size: 7vw;
 }
 
 #submit-guess {
-  top: 970px;
+  grid-area: submit-button;
+  margin: 10px;
 }
 
 #new-game {
-  top: 160px;
+  grid-area: new-game-button;
+  margin: 10px;
+}
+
+#score-display {
+  grid-area: score;
+  margin: 10px;
 }
