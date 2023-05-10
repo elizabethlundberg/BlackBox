@@ -49,6 +49,7 @@ const newGameButton = document.querySelector('#new-game')
 const guessBoardEl = document.getElementById('guess-board')
 const submitButton = document.getElementById('submit-guess')
 const scoreEl = document.getElementById('score')
+const boardSizeButton = document.getElementById('change-size')
 
 /*----- functions -----*/
 const checkSpace = (row, col) => {
