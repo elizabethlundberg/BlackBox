@@ -21,18 +21,20 @@ body {
 button {
   background-color: var(--mainColMinusOne);
   font-size: 40px;
-  width: 400px;
+  width: 350px;
   height: 70px;
 }
 
 #global-grid {
   display: grid;
-  grid-template-columns: 550px 550px;
-  grid-template-rows: 170px 160px 650px 1fr 1.5fr;
-  grid-template-areas: "heading heading" "title new-game" "game game" "score submit-button" "instructions change-size";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 130px 100px 650px 100px 70px 90px;
+  grid-template-areas: "heading heading" "title new-game" "game game" "score submit-button" "instr-text audio-text" "instr-button audio-button";
   position: absolute;
-  width: 62vw;
-  left: 19vw;
+  width: 900px;
+  height: 1150px;
+  margin: 30px 17vw 0 13vw;
+  padding: 0 0 20px 0;
   top: 30px;
   border: solid 5px;
   justify-items: center;
@@ -42,9 +44,8 @@ button {
 #guess-board {
   display: grid;
   grid-template: 1.2fr repeat(7, 1fr) 1.2fr / 1.2fr repeat(7, 1fr) 1.2fr;
-  z-index: 1;
-  width: 30vw;
-  height: 30vw;
+  width: 600px;
+  height: 600px;
   grid-area: game;
   visibility: hidden;
 }
@@ -57,8 +58,9 @@ button {
 
 #guess-board > .ray-selector {
   border: solid 2px black;
-  font-size: 40px;
+  font-size: 45px;
   font-weight: 200;
+  text-align: center;
 }
 
 #description {
@@ -79,7 +81,7 @@ button {
 
 #new-game {
   grid-area: new-game;
-  margin: 20px 0 0 80px;
+  margin: -15px 0 0 0;
 }
 
 #new-game:hover {
@@ -94,9 +96,8 @@ button {
   grid-area: score;
   border: solid 1.5px;
   background-color: var(--mainColMinusOne);
-  width: 400px;
-  height: 70px;
-  justify-self: center;
+  width: 346.5px;
+  height: 66.5px;
   display: flex;
   justify-content: center;
 }
@@ -111,53 +112,53 @@ button {
 
 #top-ad-copy {
   grid-area: heading;
-  padding: 20px 0 0 60px;
-  font-size: 30px;
+  margin: 30px 30px 0px 30px;
+  font-size: 20px;
   font-weight: 700;
   text-align: justify;
 }
 
 #title {
-  font-size: 80px;
+  font-size: 60px;
   font-weight: 900;
   grid-area: title;
-  padding: 0 0 0 60px;
-  margin: 0;
+  padding: 0 0 0 30px;
+  margin: -20px 0 0 0;
   justify-self: start;
+  visibility: hidden;
 }
 
 #top-1, #top-2, #top-3, #top-4, #top-5, #top-6, #top-7 {
-  text-align: center;
   padding: 8px 0 0 0;
 }
 
-#left-1, #left-2, #left-3, #left-4, #left-5, #left-6, #left-7 {
-  text-align: center;
-}
-
-#right-1, #right-2, #right-3, #right-4, #right-5, #right-6, #right-7 {
-  text-align: center;
-}
-
 #bottom-1, #bottom-2, #bottom-3, #bottom-4, #bottom-5, #bottom-6, #bottom-7 {
-  text-align: center;
   padding: 8px 0 0 0;
 }
 
 #instructions {
-  grid-area: instructions;
+  grid-area: instr-text;
   font-size: 20px;
-  margin: 0 0 0 70px;
+  margin: 10px 0 0 0px;
+  text-align: center;
+}
+
+#instructions-button {
+  grid-area: instr-button
 }
 
 #audio-desc {
-  grid-area: change-size;
+  grid-area: audio-text;
   font-size: 20px;
-  margin: 0 30px 25px 75px;
+  margin: 10px 0 0 0;
+  text-align: center;
 }
 
 #audio-change {
-  margin: 30px 0 0 0;
+  margin: 5px 0 0 0;
+  grid-area: audio-button;
+  font-size: 38px;
+  text-align: center;
 }
 
 #audio-change:hover {
@@ -169,8 +170,7 @@ button {
 }
 
 #instructions-button {
-  width: 400px;
-  height: 70px;
+  max-width: 350px;
   margin: 5px 0 0 0;
   background-color: var(--mainColMinusOne)
 }
@@ -186,7 +186,7 @@ button {
 #instruct-grid {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr 5fr;
+  grid-template-rows: 0.5fr 0.5fr 1fr 5fr;
   width: 50vw;
   margin: 5vh 25vw 5vh 25vw;
   background-color: white;
@@ -202,6 +202,7 @@ button {
 #instruct-button {
   grid-area: instButton;
   justify-self: center;
+  margin: 10px;
 }
 
 #instruct-text {
@@ -224,4 +225,22 @@ button {
 
 #instruct-button:active {
   background-color: var(--mainColPlusOne)
+}
+
+#display-div {
+  background-color: black;
+  color: white;
+  grid-area: game;
+  width: 600px;
+  height: 600px;
+  margin: -20px 0 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+#logo {
+  align-self: center;
+  text-align: center;
+  font-weight: 800;
+  font-size: 120px;
 }

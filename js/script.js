@@ -53,6 +53,9 @@ const guessBoardEl = document.getElementById('guess-board')
 const submitButton = document.getElementById('submit-guess')
 const scoreEl = document.getElementById('score')
 const audioButton = document.getElementById('audio-change')
+const instructButton = document.getElementById('instructions-button')
+const displayBox = document.getElementById('display-div')
+const title = document.getElementById('title')
 const hitBeep = new Audio('/audio/hitBuzz.mp3')
 const exitBeep = new Audio('/audio/exitBuzz.wav')
 const correctBeep = new Audio('/audio/correctBeep.wav')
@@ -479,6 +482,9 @@ const toggleSound = () => {
 }
 
 const init = () => {
+  displayBox.style.visibility = 'hidden'
+  title.style.visibility = 'visible'
+  scoreEl.style.fontSize = '20px'
   boardDisabled = false
   getRandomBoard()
   initGuessBoard()
@@ -490,8 +496,13 @@ const init = () => {
   renderScore()
 }
 
+const openInstructions = () => {
+  window.open('instructions.html')
+}
+
 /*----- event listeners -----*/
 newGameButton.addEventListener('click', init)
 guessBoardEl.addEventListener('click', handleBoardClick)
 submitButton.addEventListener('click', submitGuess)
 audioButton.addEventListener('click', toggleSound)
+instructButton.addEventListener('click', openInstructions)
