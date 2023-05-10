@@ -16,27 +16,30 @@ let SELECTOR_COLORS = {
   1: 'var(--oppCol)',
   2: 'var(--leftCol)',
   3: 'var(--rightCol)',
-  4: 'var(--mainColMinusOne)',
-  5: 'var(--leftColMinusOne)'
+  4: 'var(--leftColMinusOne)',
+  98: 'var(--rightColMinusOne)',
+  99: 'var(--mainColPlusOne)'
 }
 
 let GUESS_BOARD_STATE = {
   0: 'black',
   1: 'var(--oppColMinusOne)',
-  2: 'var(--mainColMinusOne)',
-  3: 'var(--mainCol)',
-  98: 'var(--mainColPlusOne)',
-  99: 'var(--leftCol)'
+  96: 'var(--mainCol)',
+  97: 'var(--leftCol)',
+  98: 'var(--rightCol)',
+  99: 'var(--oppCol)'
 }
 
 /*----- state variables -----*/
 let board
 let guessBoard
-let numOfAtoms = 3
+let numOfAtoms = 4
 let lastExit
 let lastHit
 let exitNo
 let score
+let boardDisabled = false
+let soundOn = false
 const wrongCost = 5
 const rightReward = -5
 
@@ -49,7 +52,11 @@ const newGameButton = document.querySelector('#new-game')
 const guessBoardEl = document.getElementById('guess-board')
 const submitButton = document.getElementById('submit-guess')
 const scoreEl = document.getElementById('score')
-const boardSizeButton = document.getElementById('change-size')
+const audioButton = document.getElementById('audio-change')
+const hitBeep = new Audio('/audio/hitBuzz.mp3')
+const exitBeep = new Audio('/audio/exitBuzz.wav')
+const correctBeep = new Audio('/audio/correctBeep.wav')
+const wrongBeep = new Audio('/audio/wrongBeep.wav')
 
 /*----- functions -----*/
 const checkSpace = (row, col) => {
@@ -82,7 +89,6 @@ const placeElectron = (selector) => {
   } else if (entryCol === undefined) {
     entryCol = parseInt(selector.id.charAt(selector.id.length - 1))
   }
-  console.log(entryRow, entryCol, entryDir)
   return [entryRow, entryCol, entryDir]
 }
 
@@ -185,12 +191,18 @@ const stepForward = (electronRow, electronCol, electronDir) => {
 
 const handleEnd = (reason, emitter, firstSpaceRow, firstSpaceCol) => {
   if (reason === 'HIT') {
-    emitter.style.backgroundColor = SELECTOR_COLORS[0]
+    emitter.style.backgroundColor = SELECTOR_COLORS[99]
     emitter.innerText = 'H'
+    if (soundOn === true) {
+      hitBeep.play()
+    }
     return
   } else if (reason === 'IMM RETURN') {
-    emitter.style.backgroundColor = SELECTOR_COLORS[99]
+    emitter.style.backgroundColor = SELECTOR_COLORS[98]
     emitter.innerText = 'R'
+    if (soundOn === true) {
+      exitBeep.play()
+    }
     return
   } else if (reason === 'EXIT') {
     if (lastExit[2] === 0 || lastExit[2] === 2) {
@@ -198,8 +210,11 @@ const handleEnd = (reason, emitter, firstSpaceRow, firstSpaceCol) => {
         firstSpaceCol === lastExit[1] &&
         Math.abs(firstSpaceRow - lastExit[0]) === 1
       ) {
-        emitter.style.backgroundColor = SELECTOR_COLORS[99]
+        emitter.style.backgroundColor = SELECTOR_COLORS[98]
         emitter.innerText = 'R'
+        if (soundOn === true) {
+          exitBeep.play()
+        }
         return
       }
     } else if (lastExit[2] === 1 || lastExit[2] === 3) {
@@ -207,8 +222,11 @@ const handleEnd = (reason, emitter, firstSpaceRow, firstSpaceCol) => {
         firstSpaceRow === lastExit[0] &&
         Math.abs(firstSpaceCol - lastExit[1]) === 1
       ) {
-        emitter.style.backgroundColor = SELECTOR_COLORS[99]
+        emitter.style.backgroundColor = SELECTOR_COLORS[98]
         emitter.innerText = 'R'
+        if (soundOn === true) {
+          exitBeep.play()
+        }
         return
       }
     }
@@ -223,10 +241,13 @@ const handleEnd = (reason, emitter, firstSpaceRow, firstSpaceCol) => {
       exitID = `left-${lastExit[0]}`
     }
     let exitEl = document.getElementById(exitID)
-    emitter.style.backgroundColor = SELECTOR_COLORS[exitNo]
+    emitter.style.backgroundColor = SELECTOR_COLORS[exitNo % 5]
     emitter.innerText = exitNo
-    exitEl.style.backgroundColor = SELECTOR_COLORS[exitNo]
+    exitEl.style.backgroundColor = SELECTOR_COLORS[exitNo % 5]
     exitEl.innerText = exitNo
+    if (soundOn === true) {
+      exitBeep.play()
+    }
     exitNo++
   }
 }
@@ -292,13 +313,15 @@ const renderGuessBoard = () => {
 
 const getRandomBoard = () => {
   board = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0]
   ]
   for (i = 0; i < numOfAtoms; i++) {
     let randLoc = getRandLoc()
@@ -332,6 +355,7 @@ const resetSelectors = () => {
 const submitGuess = () => {
   let numToRun = guessBoard.length * guessBoard.length
   let scoreAdjust = 0
+  let wrongGuesses = 0
   for (i = 0; i < numToRun; i++) {
     let curRow = Math.floor(i / guessBoard.length)
     let curCol = i % board.length
@@ -341,10 +365,14 @@ const submitGuess = () => {
       curCol !== 0 &&
       curCol !== guessBoard.length - 1
     ) {
-      if (guessBoard[curRow][curCol] === 3) {
+      if (guessBoard[curRow][curCol] === 1) {
         if (board[curRow][curCol] === 'A') {
           guessBoard[curRow][curCol] = 99
           scoreAdjust += rightReward
+        } else if (board[curRow][curCol] === 0) {
+          guessBoard[curRow][curCol] = 96
+          scoreAdjust += wrongCost
+          wrongGuesses++
         }
       }
     }
@@ -360,18 +388,29 @@ const submitGuess = () => {
     ) {
       if (board[curRow][curCol] === 'A') {
         if (guessBoard[curRow][curCol] !== 99) {
-          guessBoard[curRow][curCol] = 98
+          guessBoard[curRow][curCol] = 97
           scoreAdjust += wrongCost
+          wrongGuesses++
         }
       }
     }
   }
+  if (wrongGuesses === 0 && soundOn === true) {
+    correctBeep.play()
+  } else if (soundOn === true) {
+    wrongBeep.play()
+  }
+  boardDisabled = true
   renderGuessBoard()
   score += scoreAdjust
   renderScore()
+  submitButton.disabled = true
 }
 
 const handleBoardClick = (evt) => {
+  if (boardDisabled === true) {
+    return
+  }
   if (evt.target.className === 'ray-selector') {
     handleRayClick(evt.target)
     return
@@ -379,38 +418,68 @@ const handleBoardClick = (evt) => {
   let guessLoc = evt.target.id
   let guessRow = guessLoc.charAt(2)
   let guessCol = guessLoc.charAt(4)
-  guessBoard[guessRow][guessCol] = (guessBoard[guessRow][guessCol] + 1) % 4
+  guessBoard[guessRow][guessCol] = (guessBoard[guessRow][guessCol] + 1) % 2
   renderGuessBoard()
-  if (guessBoard[guessRow][guessCol] === 3) {
+  if (guessBoard[guessRow][guessCol] === 1) {
     submitButton.disabled = false
   }
+  renderScore()
 }
 
 const initGuessBoard = () => {
   guessBoard = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0]
   ]
   for (let i = 0; i < guessCellEls.length; i++) {
     guessCellEls[i].style.gridArea = guessCellEls[i].id
   }
   guessBoardEl.style.gridTemplateAreas =
-    "'. top-1 top-2 top-3 top-4 top-5 .' 'left-1 Gr1c1 Gr1c2 Gr1c3 Gr1c4 Gr1c5 right-1' 'left-2 Gr2c1 Gr2c2 Gr2c3 Gr2c4 Gr2c5 right-2' 'left-3 Gr3c1 Gr3c2 Gr3c3 Gr3c4 Gr3c5 right-3' 'left-4 Gr4c1 Gr4c2 Gr4c3 Gr4c4 Gr4c5 right-4' 'left-5 Gr5c1 Gr5c2 Gr5c3 Gr5c4 Gr5c5 right-5' '. bottom-1 bottom-2 bottom-3 bottom-4 bottom-5 .'"
+    "'. top-1 top-2 top-3 top-4 top-5 top-6 top-7 .' 'left-1 Gr1c1 Gr1c2 Gr1c3 Gr1c4 Gr1c5 Gr1c6 Gr1c7 right-1' 'left-2 Gr2c1 Gr2c2 Gr2c3 Gr2c4 Gr2c5 Gr2c6 Gr2c7 right-2' 'left-3 Gr3c1 Gr3c2 Gr3c3 Gr3c4 Gr3c5 Gr3c6 Gr3c7 right-3' 'left-4 Gr4c1 Gr4c2 Gr4c3 Gr4c4 Gr4c5 Gr4c6 Gr4c7 right-4' 'left-5 Gr5c1 Gr5c2 Gr5c3 Gr5c4 Gr5c5 Gr5c6 Gr5c7 right-5' 'left-6 Gr6c1 Gr6c2 Gr6c3 Gr6c4 Gr6c5 Gr6c6 Gr6c7 right-6' 'left-7 Gr7c1 Gr7c2 Gr7c3 Gr7c4 Gr7c5 Gr7c6 Gr7c7 right-7' '. bottom-1 bottom-2 bottom-3 bottom-4 bottom-5 bottom-6 bottom-7 .'"
   guessBoardEl.style.visibility = 'visible'
 }
 
 //Rewrite this to accept multiple board forms, or be able to construct challenge boards.
 
 const renderScore = () => {
-  scoreEl.innerText = `Score: ${score}`
+  if (boardDisabled === false) {
+    let scoreMessage = ''
+    let atomsLeft = numOfAtoms
+    scoreMessage += `Score: ${score}`
+    guessBoard.forEach((row) => {
+      row.forEach((cell) => {
+        if (cell === 1) {
+          atomsLeft--
+        }
+      })
+    })
+    scoreMessage += `\nAtoms Left: ${atomsLeft}`
+    scoreEl.innerText = scoreMessage
+  } else if (boardDisabled === true) {
+    scoreEl.innerText = `Final Score: ${score}`
+    scoreEl.style.fontSize = `40px`
+  }
+}
+
+const toggleSound = () => {
+  if (soundOn === true) {
+    soundOn = false
+    audioButton.innerText = 'TURN SOUND ON'
+  } else if (soundOn === false) {
+    soundOn = true
+    audioButton.innerText = 'TURN SOUND OFF'
+  }
 }
 
 const init = () => {
+  boardDisabled = false
   getRandomBoard()
   initGuessBoard()
   renderGuessBoard()
@@ -425,3 +494,4 @@ const init = () => {
 newGameButton.addEventListener('click', init)
 guessBoardEl.addEventListener('click', handleBoardClick)
 submitButton.addEventListener('click', submitGuess)
+audioButton.addEventListener('click', toggleSound)

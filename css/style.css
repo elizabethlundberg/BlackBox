@@ -10,12 +10,15 @@
   --leftColMinusOne: #A69AD7;
 }
 
+* {
+  font-family: 'Roboto Slab', serif;
+}
+
 body {
   background-color: var(--oppColMinusOne);
 }
 
 button {
-  font-family: 'Roboto Slab', serif;
   background-color: var(--mainColMinusOne);
   font-size: 40px;
   width: 400px;
@@ -38,14 +41,12 @@ button {
 
 #guess-board {
   display: grid;
-  grid-template: 1.2fr repeat(5, 1fr) 1.2fr / 1.2fr repeat(5, 1fr) 1.2fr;
+  grid-template: 1.2fr repeat(7, 1fr) 1.2fr / 1.2fr repeat(7, 1fr) 1.2fr;
   z-index: 1;
-  width: 70vw;
-  height: 70vw;
+  width: 30vw;
+  height: 30vw;
   grid-area: game;
   visibility: hidden;
-  max-width: 600px;
-  max-height: 600px;
 }
 
 #guess-board > .guess-cell {
@@ -56,8 +57,7 @@ button {
 
 #guess-board > .ray-selector {
   border: solid 2px black;
-  font-family: 'Roboto Slab', sans-serif;
-  font-size: 55px;
+  font-size: 40px;
   font-weight: 200;
 }
 
@@ -79,7 +79,6 @@ button {
 
 #new-game {
   grid-area: new-game;
-  font-family: 'Roboto Slab', serif;
   margin: 20px 0 0 80px;
 }
 
@@ -97,25 +96,23 @@ button {
   background-color: var(--mainColMinusOne);
   width: 400px;
   height: 70px;
-  font-family: 'Roboto Slab', serif;
   justify-self: center;
   display: flex;
   justify-content: center;
 }
 
 #score {
-  font-family: 'Roboto Slab', serif;
+  text-align: center;
   justify-self: center;
   align-self: center;
   font-weight: 400;
-  font-size: 40px;
+  font-size: 20px;
 }
 
 #top-ad-copy {
   grid-area: heading;
   padding: 20px 0 0 60px;
   font-size: 30px;
-  font-family: 'Roboto Slab', serif;
   font-weight: 700;
   text-align: justify;
 }
@@ -123,27 +120,26 @@ button {
 #title {
   font-size: 80px;
   font-weight: 900;
-  font-family: 'Roboto Slab', serif;
   grid-area: title;
   padding: 0 0 0 60px;
   margin: 0;
   justify-self: start;
 }
 
-#top-1, #top-2, #top-3, #top-4, #top-5 {
+#top-1, #top-2, #top-3, #top-4, #top-5, #top-6, #top-7 {
   text-align: center;
   padding: 8px 0 0 0;
 }
 
-#left-1, #left-2, #left-3, #left-4, #left-5 {
+#left-1, #left-2, #left-3, #left-4, #left-5, #left-6, #left-7 {
   text-align: center;
 }
 
-#right-1, #right-2, #right-3, #right-4, #right-5 {
+#right-1, #right-2, #right-3, #right-4, #right-5, #right-6, #right-7 {
   text-align: center;
 }
 
-#bottom-1, #bottom-2, #bottom-3, #bottom-4, #bottom-5 {
+#bottom-1, #bottom-2, #bottom-3, #bottom-4, #bottom-5, #bottom-6, #bottom-7 {
   text-align: center;
   padding: 8px 0 0 0;
 }
@@ -151,26 +147,24 @@ button {
 #instructions {
   grid-area: instructions;
   font-size: 20px;
-  font-family: 'Roboto Slab', serif;
   margin: 0 0 0 70px;
 }
 
-#change-size {
+#audio-desc {
   grid-area: change-size;
   font-size: 20px;
-  font-family: 'Roboto Slab', serif;
   margin: 0 30px 25px 75px;
 }
 
-#board-change {
-  margin: 5px 0 0 0;
+#audio-change {
+  margin: 30px 0 0 0;
 }
 
-#board-change:hover {
+#audio-change:hover {
   background-color: var(--mainCol)
 }
 
-#board-change:active {
+#audio-change:active {
   background-color: var(--mainColPlusOne)
 }
 
@@ -186,5 +180,48 @@ button {
 }
 
 #instructions-button:active {
+  background-color: var(--mainColPlusOne)
+}
+
+#instruct-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 5fr;
+  width: 50vw;
+  margin: 5vh 25vw 5vh 25vw;
+  background-color: white;
+  border: solid 5px;
+  grid-template-areas: 'instTitle' 'instText' 'instButton' 'instImg'
+}
+
+#instruct-heading {
+  grid-area: instTitle;
+  margin: 50px 0 0 50px;
+}
+
+#instruct-button {
+  grid-area: instButton;
+  justify-self: center;
+}
+
+#instruct-text {
+  grid-area: instText;
+  margin: 0 0 0 50px;
+  padding: 0;
+  font-size: 20px;  
+  width: 44vw;
+}
+
+#instruct-img {
+  grid-area: instImg;
+  width: 45vw;
+  margin: -25px 0 50px 50px;
+}
+
+#instruct-button:hover {
+  background-color: var(--mainCol)
+}
+
+#instruct-button:active {
   background-color: var(--mainColPlusOne)
 }
