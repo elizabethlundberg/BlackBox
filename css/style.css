@@ -1,21 +1,32 @@
-#guess-board > .ray-selector {
-  font-size: 4vmin;
+:root {
+  --mainCol: #FA4B58;
+  --mainColMinusOne: #FCAAB0;
+  --mainColPlusOne: #D51A28;
+  --oppCol: #57DD42;
+  --oppColMinusOne: #A7E99D;
+  --rightCol: #FFDE4D;
+  --rightColMinusOne: #FFF0AD;
+  --leftCol: #634BC3;
+  --leftColMinusOne: #A69AD7;
+}
+
+body {
+  background-color: var(--oppColMinusOne);
 }
 
 #grid {
   display: grid;
-  grid-template-columns: 1fr 8fr 1fr;
-  grid-template-rows: 1fr 0.5fr 0.6fr 6fr 0.5fr 1fr;
-  grid-template-areas: "heading heading heading" ". new-game-button ." ". score ." "game game game" ". submit-button ." ". description .";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 0.5fr 1fr 1fr 1fr 1.5fr;
+  grid-template-areas: "heading heading top-copy top-copy" "score score new-game-button new-game-button" "game game game game" ". submit-button submit-button ." ". description description .";
   position: absolute;
-  width: 95vw;
-  left: 2.5vw;
-  border: solid;
+  width: 80vw;
+  left: 10vw;
+  right: 10vw;
+  top: 30px;
+  border: solid 5px;
   justify-items: center;
-}
-
-#score-display {
-  text-align: center;
+  background-color: white;
 }
 
 #guess-cell {
@@ -24,7 +35,7 @@
 
 #guess-board {
   display: grid;
-  grid-template: 1.5fr repeat(5, 1fr) 1.5fr / 1.5fr repeat(5, 1fr) 1.5fr;
+  grid-template: 1.2fr repeat(5, 1fr) 1.2fr / 1.2fr repeat(5, 1fr) 1.2fr;
   z-index: 1;
   width: 70vw;
   height: 70vw;
@@ -34,20 +45,29 @@
   max-height: 600px;
 }
 
-#guess-board > div {
+#guess-board > .guess-cell {
   z-index: 2;
   background-color: black;
-  border: solid grey;
+  border: solid 1px grey;
+}
+
+#guess-board > .ray-selector {
+  border: solid 2px black;
+  font-family: 'Roberto Slab', sans-serif;
+  font-size: 4vmin;
+  font-weight: 200;
 }
 
 #description {
   grid-area: description;
 }
 
-h1 {
+img {
   grid-area: heading;
-  border: solid;
-  font-size: 7vw;
+  justify-self: start;
+  padding: 30px 50px;
+  width: 35vw;
+  align-self: end;
 }
 
 #submit-guess {
@@ -57,10 +77,51 @@ h1 {
 
 #new-game {
   grid-area: new-game-button;
-  margin: 10px;
+  font-family: 'Roboto Slab', serif;
+  background-color: var(--mainColMinusOne);
+  font-size: 60px;
+  width: 30vw;
+  height: 100px;
 }
 
-#score-display {
+#new-game:hover {
+  background-color: var(--mainCol)
+}
+
+#new-game:active {
+  background-color: var(--mainColPlusOne)
+}
+
+#score-box {
   grid-area: score;
-  margin: 10px;
+  border: solid 1.5px;
+  background-color: var(--mainColMinusOne);
+  width: 30vw;
+  height: 100px;
+  font-family: 'Roberto Slab', serif;
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+}
+
+#score {
+  font-family: 'Roberto Slab', serif;
+  justify-self: center;
+  align-self: center;
+  font-weight: 100;
+  font-size: 50px;
+}
+
+#top-ad-copy {
+  grid-area: top-copy;
+  padding: 10px 40px 0 0;
+  font-size: 30px;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  text-align: justify;
+  align-self: end;
+}
+
+#hit {
+  border-radius: 50%;
 }

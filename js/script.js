@@ -12,22 +12,21 @@ let DIRECTIONS = {
 }
 
 let SELECTOR_COLORS = {
-  0: 'red',
-  1: 'orange',
-  2: 'yellow',
-  3: 'blue',
-  4: 'purple',
-  5: 'brown',
-  99: 'limegreen'
+  0: 'var(--mainCol)',
+  1: 'var(--oppCol)',
+  2: 'var(--leftCol)',
+  3: 'var(--rightCol)',
+  4: 'var(--mainColMinusOne)',
+  5: 'var(--leftColMinusOne)'
 }
 
 let GUESS_BOARD_STATE = {
   0: 'black',
-  1: 'purple',
-  2: 'yellow',
-  3: 'green',
-  98: 'red',
-  99: 'blue'
+  1: 'var(--oppColMinusOne)',
+  2: 'var(--mainColMinusOne)',
+  3: 'var(--mainCol)',
+  98: 'var(--mainColPlusOne)',
+  99: 'var(--leftCol)'
 }
 
 /*----- state variables -----*/
@@ -281,6 +280,9 @@ const renderGuessBoard = () => {
           const cellId = `Gr${rowIdx}c${colIdx}`
           const divCell = document.getElementById(cellId)
           divCell.style.backgroundColor = GUESS_BOARD_STATE[cellVal]
+          if (guessBoard[rowIdx][colIdx] === 99) {
+            divCell.classList.add('hit')
+          }
         }
       })
     }
@@ -321,7 +323,7 @@ const getRandomBoard = () => {
 
 const resetSelectors = () => {
   raySelEls.forEach((raySelEl) => {
-    raySelEl.style.backgroundColor = 'green'
+    raySelEl.style.backgroundColor = 'var(--mainColMinusOne)'
     raySelEl.innerText = ''
   })
 }
@@ -404,7 +406,7 @@ const initGuessBoard = () => {
 //Rewrite this to accept multiple board forms, or be able to construct challenge boards.
 
 const renderScore = () => {
-  scoreEl.innerText = score
+  scoreEl.innerText = `Score: ${score}`
 }
 
 const init = () => {
