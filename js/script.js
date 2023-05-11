@@ -465,7 +465,7 @@ const renderScore = () => {
     scoreEl.innerText = scoreMessage
   } else if (boardDisabled === true) {
     scoreEl.innerText = `FINAL SCORE: ${score}`
-    scoreEl.style.fontSize = `40px`
+    scoreEl.style.fontSize = `36px`
   }
 }
 
@@ -482,7 +482,7 @@ const toggleSound = () => {
 const init = () => {
   displayBox.style.visibility = 'hidden'
   title.style.visibility = 'visible'
-  scoreEl.style.fontSize = '20px'
+  scoreEl.style.fontSize = '22px'
   boardDisabled = false
   getRandomBoard()
   initGuessBoard()
