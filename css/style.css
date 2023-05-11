@@ -20,7 +20,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 1200px;
+  height: 1250px;
 }
 
 button {
@@ -37,7 +37,7 @@ button {
   grid-template-areas: "heading heading" "title new-game" "game game" "score submit-button" "instr-text audio-text" "instr-button audio-button";
   position: absolute;
   width: 900px;
-  height: 1150px;
+  height: 1175px;
   top: 30px;
   border: solid 5px;
   justify-items: center;
@@ -116,7 +116,7 @@ button {
 
 #top-ad-copy {
   grid-area: heading;
-  margin: 30px 50px 0px 50px;
+  margin: 32px 54px 0 52px;
   font-size: 20px;
   font-weight: 700;
   text-align: justify;
@@ -127,7 +127,7 @@ button {
   font-weight: 900;
   grid-area: title;
   padding: 0 0 0 30px;
-  margin: -15px 0 0 18px;
+  margin: -15px 0 0 20px;
   justify-self: start;
   visibility: hidden;
 }
@@ -143,7 +143,7 @@ button {
 #instructions {
   grid-area: instr-text;
   font-size: 20px;
-  margin: 10px 0 0 0px;
+  margin: 10px 0 0 20px;
   text-align: center;
 }
 
@@ -154,7 +154,7 @@ button {
 #audio-desc {
   grid-area: audio-text;
   font-size: 20px;
-  margin: 10px 0 0 0;
+  margin: 10px 20px 0 0;
   text-align: center;
 }
 
@@ -247,4 +247,13 @@ button {
   font-weight: 800;
   font-size: 120px;
   line-height: 100px;
+}
+
+#score-box, #instructions-button {
+  margin-right: -20px;
+}
+
+
+#new-game, #submit-guess, #audio-change {
+  margin-left: -20px;
 }
