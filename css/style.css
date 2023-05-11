@@ -188,17 +188,15 @@ button {
 }
 
 #instruct-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 0.5fr 0.5fr 1fr 800px;
+  display: flex;
   width: 800px;
-  height: 1100px;
   position: absolute;
   top: 0px;
   margin: 5vh 25vw 5vh 25vw;
+  padding: 0 0 40px 0;
   background-color: white;
   border: solid 5px;
-  grid-template-areas: 'instTitle' 'instText' 'instButton' 'instImg'
+  flex-direction: column;
 }
 
 #instruct-heading {
@@ -208,7 +206,7 @@ button {
 
 #instruct-button {
   grid-area: instButton;
-  justify-self: center;
+  align-self: center;
   margin: 20px;
 }
 

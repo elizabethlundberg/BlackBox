@@ -18,6 +18,10 @@ Aesthetically, I was originally hoping to mimic the complex, exuberant layout an
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Parcheesi-board.jpg/1920px-Parcheesi-board.jpg" height="500">
 
+At the time, of course, these board games had more saturated colors - but my memory is from twenty years later, when I would find them in our board game closet, so the colors here are a little more faded:
+
+<img src="blob:https://imgur.com/ed8c308c-0a66-4612-b0dd-c81f923e2ea7" height="600">
+
 ## Getting Started
 
 Either clone the repo and open index.html, or follow the link at (link). There are no prerequisites. Click on "TUTORIAL" for gameplay instructions.
@@ -45,6 +49,11 @@ Feel free to modify the game logic! While the original board game was restricted
 ## Credits:
 
 Electron microscope picture from [the Wikipedia page on electron microscopes](https://www.bionicdisco.com/wp-content/uploads/2014/11/Parker_Brothers_Code_Name_Sector_Popular_Mechanics_November_1978.jpg) (Creative Commons)
+
 Board game picture above from [the Wikipedia page on Parcheesi](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Parcheesi-board.jpg/1920px-Parcheesi-board.jpg)
+
 Sound effects from [freesound](https://freesound.org/) (Creative Commons)
+
 Tutorial pictures from [the Wikipedia page on Black Box](<https://en.wikipedia.org/wiki/Black_Box_(game)>) (Creative Commons)
+
+Font: [Roboto Slab from Google Fonts](https://fonts.google.com/specimen/Roboto+Slab)
