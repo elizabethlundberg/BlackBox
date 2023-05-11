@@ -1,6 +1,6 @@
 # Black Box
 
-## Date: 5/4/23
+## Date: 5/11/23
 
 ### By: Lark Lundberg
 
@@ -10,34 +10,41 @@
 
 Black Box is a puzzle game invented by Eric Solomon, based on electron microscopes.
 
-![Image](https://upload.wikimedia.org/wikipedia/commons/c/c5/Electron_Microscope.jpg)
+<img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Electron_Microscope.jpg" height="400">
 
-Five atoms are placed semi-randomly inside on a grid inside the "black box", inside which the player can't see. The player can shoot rays into the box at the edge, and atoms either be hit with the ray, returning nothing, or can bend the ray, leading it coming out of another exit. Each result gives you more information about the atoms inside.
+Four atoms are placed semi-randomly inside on a grid inside the "black box", inside which the player can't see. The player can shoot rays into the box at the edge, and atoms either be hit with the ray, returning nothing, or can bend the ray, leading it coming out of another exit. Each result gives you more information about the atoms inside.
 
-The goal is to correctly guess the location of all the atoms with as few rays as possible.
+Aesthetically, I was originally hoping to mimic the complex, exuberant layout and prose of mid-century American board game advertisements. Although the game was invented in the 1970s, the atom theme suggested the 50s style to me. However, I ultimately decided to combine the wowee-zowee text of the classic midcentury ad with the colors of 70s board game materials, like Parcheesi:
 
-Aesthetically, I would like the game to have an Apple II vibe
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Parcheesi-board.jpg/1920px-Parcheesi-board.jpg" height="500">
 
-### A direct hit:
+## Getting Started
 
-![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/BlackBoxSample2.svg/1920px-BlackBoxSample2.svg.png)
+Either clone the repo and open index.html, or follow the link at (link). There are no prerequisites. Click on "TUTORIAL" for gameplay instructions.
 
-### A deflection:
+## Usage
 
-![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/BlackBoxSample3.svg/1920px-BlackBoxSample3.svg.png)
+Black Box is a fun way to lose some time. Just use the ray selectors around the outside to gain information, then click on the board to make your guesses and hit submit! Score works like Golf, so try to keep it as low as possible.
 
-### Depending on the placement, this can lead to some pretty surprising results:
+## Roadmap
 
-![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/BlackBoxSample8.svg/1920px-BlackBoxSample8.svg.png)
+[X] Game is playable
 
----
+[X] Layout is complete
 
-## How to Get Started:
+[ ] Add other modes
 
-The game will require two boards. The actual board will have n\*4 inputs for each ray. (Board sizes vary - I was thinking of going with the 8x8 to make it a little easier.) The second board will allow the player to track their guesses, and where they can submit their official guess. The second guess board is displayed over the actual board, but both need to be rendered separately.
+[ ] Add ability to change board size or atom number
 
-Rendering the logic of the rays seems like the most complex part. An atom reflects all rays that cross within one cell diagonally. I would need to write a function that, at each step, calculates any effects from the eight surrounding squares in the 2D array of the board. This will probably look a lot like the Check Win function in Connect-4/Tic-Tac-Toe.
+[ ] Add persistent leaderboard
+
+## Contributing
+
+Feel free to modify the game logic! While the original board game was restricted by a number of factors, a digital version could take a number of forms.
 
 ## Credits:
 
-Images from [Wikipedia's page on Black Box](<https://en.wikipedia.org/wiki/Black_Box_(game)>)
+Electron microscope picture from [the Wikipedia page on electron microscopes](https://www.bionicdisco.com/wp-content/uploads/2014/11/Parker_Brothers_Code_Name_Sector_Popular_Mechanics_November_1978.jpg) (Creative Commons)
+Board game picture above from [the Wikipedia page on Parcheesi](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Parcheesi-board.jpg/1920px-Parcheesi-board.jpg)
+Sound effects from [freesound](https://freesound.org/) (Creative Commons)
+Tutorial pictures from [the Wikipedia page on Black Box](<https://en.wikipedia.org/wiki/Black_Box_(game)>) (Creative Commons)

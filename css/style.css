@@ -20,6 +20,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  height: 1200px;
 }
 
 button {
@@ -32,7 +33,7 @@ button {
 #global-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 130px 100px 650px 100px 70px 90px;
+  grid-template-rows: 120px 100px 650px 100px 70px 90px;
   grid-template-areas: "heading heading" "title new-game" "game game" "score submit-button" "instr-text audio-text" "instr-button audio-button";
   position: absolute;
   width: 900px;
@@ -50,7 +51,7 @@ button {
   height: 600px;
   grid-area: game;
   visibility: hidden;
-  margin: -20px 0 0 0;
+  margin: 0 0 0 0;
 }
 
 #guess-board > .guess-cell {
@@ -62,7 +63,7 @@ button {
 #guess-board > .ray-selector {
   border: solid 2px black;
   font-size: 45px;
-  font-weight: 200;
+  font-weight: 400;
   text-align: center;
 }
 
@@ -84,7 +85,7 @@ button {
 
 #new-game {
   grid-area: new-game;
-  margin: -30px 0 0 0;
+  margin: -8px 0 0 0;
 }
 
 #new-game:hover {
@@ -115,7 +116,7 @@ button {
 
 #top-ad-copy {
   grid-area: heading;
-  margin: 30px 30px 0px 30px;
+  margin: 30px 50px 0px 50px;
   font-size: 20px;
   font-weight: 700;
   text-align: justify;
@@ -126,7 +127,7 @@ button {
   font-weight: 900;
   grid-area: title;
   padding: 0 0 0 30px;
-  margin: -36px 0 0 0;
+  margin: -15px 0 0 18px;
   justify-self: start;
   visibility: hidden;
 }
@@ -191,7 +192,9 @@ button {
   grid-template-columns: 1fr;
   grid-template-rows: 0.5fr 0.5fr 1fr 800px;
   width: 800px;
-  height: 900px;
+  height: 1100px;
+  position: absolute;
+  top: 0px;
   margin: 5vh 25vw 5vh 25vw;
   background-color: white;
   border: solid 5px;
@@ -200,7 +203,7 @@ button {
 
 #instruct-heading {
   grid-area: instTitle;
-  margin: 25px 0 0 40px;
+  margin: 25px 0 5px 40px;
 }
 
 #instruct-button {
@@ -218,7 +221,7 @@ button {
 
 #instruct-img {
   grid-area: instImg;
-  width: 590px;
+  width: 720px;
   margin: 0 40px 0 40px;
 }
 
@@ -236,7 +239,6 @@ button {
   grid-area: game;
   width: 600px;
   height: 600px;
-  margin: -20px 0 0 0;
   display: flex;
   justify-content: center;
 }
@@ -246,4 +248,5 @@ button {
   text-align: center;
   font-weight: 800;
   font-size: 120px;
+  line-height: 100px;
 }

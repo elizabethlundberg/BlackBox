@@ -1,10 +1,10 @@
 let curSlide = 0
 
 const allText = [
-  'Black Box is a simple one-player puzzle game based on the electron microscope. Rather than examine atomic objects directly, these tools fire electron rays into an impermeable "black box". Atoms warp and shift the rays, and if they come out of the box, information about the atoms can be deduced from how the electron has changed.',
-  "During normal play, you can't see inside the box. Your goal is to guess the location of the four atoms inside using the 28 ray entrances around the box. The electrons will either hit an atom directly or be turned 90 or 180 degrees.",
+  'Black Box is a simple one-player puzzle game based on the electron microscope. Rather than examine atomic objects directly, these tools fire electron rays into an impermeable "black box". Atoms warp and shift the rays, and if they come out of the box, information about the atoms can be deduced from how the electrons have changed.',
+  "During play, you can't see inside the box. Your goal is to guess the location of the four atoms inside using the ray entrances around the box. The electrons will either hit an atom, be turned 90 or 180 degrees and come out another exit, or miss all the atoms entirely.",
   'If the electrons directly hit an atom, you will only be told you got a hit.',
-  'If the electrons pass a cell diagonal to an atom, they will be repelled turned 90 degrees away from the atom. You will see it come out of another entrance.',
+  'If the electrons pass a cell diagonal to an atom, they will be repelled and turned 90 degrees away from the atom. You will see it come out of another entrance.',
   'If the electrons are repelled by two atoms, they will turn 180 degrees and you will get a return, or R.',
   'These three simple rules can lead to complex patterns! You may think this atom just turned to the right, based on the entrance and exit location...',
   'But it actually took a more circuitous path.',

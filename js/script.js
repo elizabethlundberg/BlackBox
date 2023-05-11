@@ -259,9 +259,6 @@ const handleRayClick = (selector) => {
   let status
   lastExit = undefined
   lastHit = undefined
-  if (selector.className !== 'ray-selector') {
-    return
-  }
   if (selector.innerText) {
     return
   }
@@ -444,6 +441,7 @@ const initGuessBoard = () => {
   for (let i = 0; i < guessCellEls.length; i++) {
     guessCellEls[i].style.gridArea = guessCellEls[i].id
   }
+  // Did it this way so I can come back and make board size modular.
   guessBoardEl.style.gridTemplateAreas =
     "'. top-1 top-2 top-3 top-4 top-5 top-6 top-7 .' 'left-1 Gr1c1 Gr1c2 Gr1c3 Gr1c4 Gr1c5 Gr1c6 Gr1c7 right-1' 'left-2 Gr2c1 Gr2c2 Gr2c3 Gr2c4 Gr2c5 Gr2c6 Gr2c7 right-2' 'left-3 Gr3c1 Gr3c2 Gr3c3 Gr3c4 Gr3c5 Gr3c6 Gr3c7 right-3' 'left-4 Gr4c1 Gr4c2 Gr4c3 Gr4c4 Gr4c5 Gr4c6 Gr4c7 right-4' 'left-5 Gr5c1 Gr5c2 Gr5c3 Gr5c4 Gr5c5 Gr5c6 Gr5c7 right-5' 'left-6 Gr6c1 Gr6c2 Gr6c3 Gr6c4 Gr6c5 Gr6c6 Gr6c7 right-6' 'left-7 Gr7c1 Gr7c2 Gr7c3 Gr7c4 Gr7c5 Gr7c6 Gr7c7 right-7' '. bottom-1 bottom-2 bottom-3 bottom-4 bottom-5 bottom-6 bottom-7 .'"
   guessBoardEl.style.visibility = 'visible'
@@ -455,7 +453,7 @@ const renderScore = () => {
   if (boardDisabled === false) {
     let scoreMessage = ''
     let atomsLeft = numOfAtoms
-    scoreMessage += `Score: ${score}`
+    scoreMessage += `SCORE: ${score}`
     guessBoard.forEach((row) => {
       row.forEach((cell) => {
         if (cell === 1) {
@@ -463,10 +461,10 @@ const renderScore = () => {
         }
       })
     })
-    scoreMessage += `\nAtoms Left: ${atomsLeft}`
+    scoreMessage += `\nATOMS LEFT: ${atomsLeft}`
     scoreEl.innerText = scoreMessage
   } else if (boardDisabled === true) {
-    scoreEl.innerText = `Final Score: ${score}`
+    scoreEl.innerText = `FINAL SCORE: ${score}`
     scoreEl.style.fontSize = `40px`
   }
 }
