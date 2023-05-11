@@ -18,9 +18,9 @@ Aesthetically, I was originally hoping to mimic the complex, exuberant layout an
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Parcheesi-board.jpg/1920px-Parcheesi-board.jpg" height="500">
 
-At the time, of course, these board games had more saturated colors - but my memory is from twenty years later, when I would find them in our board game closet, so the colors here are a little more faded:
+The salmon-and-lime color scheme is a little eye-searing, but also evokes that period and style:
 
-<img src="blob:https://imgur.com/ed8c308c-0a66-4612-b0dd-c81f923e2ea7" height="600">
+<img src="https://i.imgur.com/JKUskQh.png" height="600">
 
 ## Getting Started
 

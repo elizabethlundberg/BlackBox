@@ -116,7 +116,7 @@ button {
 
 #top-ad-copy {
   grid-area: heading;
-  margin: 32px 54px 0 52px;
+  margin: 35px 54px 0 52px;
   font-size: 20px;
   font-weight: 700;
   text-align: justify;
@@ -256,4 +256,24 @@ button {
 
 #new-game, #submit-guess, #audio-change {
   margin-left: -20px;
+}
+
+#warning {
+  visibility: hidden;
+  border: solid 5px;
+  background-color: white;
+  font-family: 'Roboto Slab', serif;
+  height: 80px;
+  width: 500px;
+  font-size: 30px;
+  padding: 30px;
+}
+
+@media screen and (max-width: 900px) {
+  #global-grid {
+    visibility: hidden;
+  }
+  #warning {
+    visibility: visible;
+  }
 }
