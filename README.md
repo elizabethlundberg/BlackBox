@@ -24,7 +24,7 @@ The salmon-and-lime color scheme is a little eye-searing, but also evokes that p
 
 ## Getting Started
 
-Either clone the repo and open index.html, or follow the link at (link). There are no prerequisites. Click on "TUTORIAL" for gameplay instructions.
+Either clone the repo and open index.html, or just go to [my Surge link](https://blackboxgame.surge.sh). There are no prerequisites. Click on "TUTORIAL" for gameplay instructions.
 
 ## Usage
 
