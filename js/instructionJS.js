@@ -14,13 +14,13 @@ const allText = [
 
 const allImages = [
   'wikiElectronMicroscope.jpg',
-  'wikiBBPicture1.png',
-  'wikiBBPicture2.png',
-  'wikiBBPicture3.png',
-  'wikiBBPicture4.png',
-  'wikiBBPicture5.png',
-  'wikiBBPicture6.svg',
-  'wikiBBPicture7.png',
+  'gameplay1.png',
+  'gameplay2.png',
+  'gameplay3.png',
+  'gameplay4.png',
+  'gameplay5.png',
+  'gameplay6.png',
+  'gameplay7.png',
   'wikiElectronMicroscopeMicro.jpeg'
 ]
 
