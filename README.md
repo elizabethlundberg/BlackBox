@@ -54,6 +54,4 @@ Board game picture above from [the Wikipedia page on Parcheesi](https://upload.w
 
 Sound effects from [freesound](https://freesound.org/) (Creative Commons)
 
-Tutorial pictures from [the Wikipedia page on Black Box](<https://en.wikipedia.org/wiki/Black_Box_(game)>) (Creative Commons)
-
 Font: [Roboto Slab from Google Fonts](https://fonts.google.com/specimen/Roboto+Slab)
