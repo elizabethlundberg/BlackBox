@@ -1,9 +1,5 @@
 /*----- constants -----*/
-let CELL_STATE = {
-  0: 'black',
-  A: 'white'
-}
-
+// Throughout, directions are referred to as numbers - 0 for up, 1 for right, 2 for bottom, 3 for left, just like CSS - so I can do modulo to write general "turn right/turn left" functions.
 let DIRECTIONS = {
   0: -1,
   1: 1,
@@ -62,6 +58,7 @@ const correctBeep = new Audio('/audio/correctBeep.wav')
 const wrongBeep = new Audio('/audio/wrongBeep.wav')
 
 /*----- functions -----*/
+// All purpose "check if there's an atom here" thing. In retrospect, could probably have just written this as an if statement, since the only truthy value on the actual board is "A".
 const checkSpace = (row, col) => {
   if (board[row][col] === 'A') {
     return 'HIT'
@@ -70,6 +67,7 @@ const checkSpace = (row, col) => {
   }
 }
 
+// Special function to handle "leaving" the entrance. Probably could be rewritten now that I've added more rows and columns for the emitters to the actual board.
 const placeElectron = (selector) => {
   let entryRow
   let entryCol
@@ -159,6 +157,7 @@ const checkExit = (row, col) => {
   }
 }
 
+// The recursive function that is called once it's confirmed the atom enters the board - runs itself until it senses an exit, then hands it to handleExit
 const stepForward = (electronRow, electronCol, electronDir) => {
   let newSpaceRow
   let newSpaceCol
@@ -192,6 +191,7 @@ const stepForward = (electronRow, electronCol, electronDir) => {
   stepForward(newSpaceRow, newSpaceCol, newDir)
 }
 
+// When an exit or hit is detected, this sets the ray selectors to the appropriate color.
 const handleEnd = (reason, emitter, firstSpaceRow, firstSpaceCol) => {
   if (reason === 'HIT') {
     emitter.style.backgroundColor = SELECTOR_COLORS[99]
@@ -255,6 +255,7 @@ const handleEnd = (reason, emitter, firstSpaceRow, firstSpaceCol) => {
   }
 }
 
+// Emission happens in three stages: the "first space" is picked and it's tested if it leaves the emitter, then iterates through its path, then handles the exit.
 const handleRayClick = (selector) => {
   let status
   lastExit = undefined
@@ -311,6 +312,7 @@ const renderGuessBoard = () => {
   })
 }
 
+// Board is always two rows larger and two columns larger than the "real" board, to include the ray selectors for emit test and to avoid an error when checking "past" the board (on the right going up, left going down, and similar for top and bottom)
 const getRandomBoard = () => {
   board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -345,6 +347,7 @@ const getRandomBoard = () => {
   }
 }
 
+// Could have just put this inside init() since I think it's the only time it's called.
 const resetSelectors = () => {
   raySelEls.forEach((raySelEl) => {
     raySelEl.style.backgroundColor = 'var(--mainColMinusOne)'
@@ -352,6 +355,7 @@ const resetSelectors = () => {
   })
 }
 
+// Checks guess against actual board.
 const submitGuess = () => {
   let numToRun = guessBoard.length * guessBoard.length
   let scoreAdjust = 0
@@ -407,6 +411,7 @@ const submitGuess = () => {
   submitButton.disabled = true
 }
 
+// Simple function to rotate through the colors in GUESS_BOARD_STATE. Would like to add two colors for notes (one for "no atom here", one for "atom possibly here").
 const handleBoardClick = (evt) => {
   if (boardDisabled === true) {
     return
@@ -447,8 +452,7 @@ const initGuessBoard = () => {
   guessBoardEl.style.visibility = 'visible'
 }
 
-//Rewrite this to accept multiple board forms, or be able to construct challenge boards.
-
+// Injects score into box, adjusts font size for two lines v one line (post-win)
 const renderScore = () => {
   if (boardDisabled === false) {
     let scoreMessage = ''
@@ -479,6 +483,7 @@ const toggleSound = () => {
   }
 }
 
+// Sets up the game board and resets it after play.
 const init = () => {
   displayBox.style.visibility = 'hidden'
   title.style.visibility = 'visible'
