@@ -267,13 +267,33 @@ button {
   width: 300px;
   font-size: 30px;
   padding: 30px;
-  position: absolute;
-  top: 35vh;
+  margin-top: 200px;
+  z-index: 4;
+}
+
+#warning-bg {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  background-color: var(--oppColMinusOne);
+  z-index: 3;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 900px) {
   #global-grid {
     visibility: hidden;
+  }
+  #title {
+    visibility: hidden;
+  }
+  #warning-bg {
+    visibility: visible;
   }
   #warning {
     visibility: visible;
